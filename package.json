@@ -5,6 +5,11 @@
   "bugs": {
     "url": "https://github.com/sanemat/web-waddle/issues"
   },
+  "devDependencies": {
+    "@types/node": "^13.7.4",
+    "del-cli": "^3.0.0",
+    "typescript": "^3.8.2"
+  },
   "homepage": "https://github.com/sanemat/web-waddle#readme",
   "license": "Apache-2.0",
   "main": "dist/index.js",
@@ -13,6 +18,7 @@
     "url": "git+ssh://git@github.com/sanemat/web-waddle.git"
   },
   "scripts": {
+    "prebuild": "del dist",
     "test": "exit 0"
   }
 }
