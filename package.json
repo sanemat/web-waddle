@@ -13,6 +13,6 @@
     "url": "git+ssh://git@github.com/sanemat/web-waddle.git"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "exit 0"
   }
 }
