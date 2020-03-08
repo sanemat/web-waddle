@@ -1,4 +1,5 @@
 (() => {
+  const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
   let context = new AudioContext();
   let source: AudioBuffer = null;
   window.addEventListener("load", () => {
