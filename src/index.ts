@@ -1,5 +1,6 @@
 (() => {
-  const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+  const AudioContext =
+    window.AudioContext || (window as any).webkitAudioContext;
   let context = new AudioContext();
   let source: AudioBuffer = null;
   window.addEventListener("load", () => {
@@ -10,7 +11,20 @@
           return response.arrayBuffer();
         })
         .then(buffer => {
-          return context.decodeAudioData(buffer);
+          // safari does not support promise-based syntax
+          // BaseAudioContext.decodeAudioData()
+          // https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/decodeAudioData
+          return new Promise<AudioBuffer>((resolve, reject) => {
+            context.decodeAudioData(
+              buffer,
+              (buf: AudioBuffer) => {
+                resolve(buf);
+              },
+              (error: DOMException) => {
+                reject(error);
+              }
+            );
+          });
         })
         .then(decodeAudio => {
           source = decodeAudio;
