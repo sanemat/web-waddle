@@ -37,7 +37,10 @@
   });
 
   function play() {
-    let node = new AudioBufferSourceNode(context, { buffer: source });
+    // safari does not have AudioBufferSourceNode() constructor
+    // https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode/AudioBufferSourceNode
+    let node = context.createBufferSource();
+    node.buffer = source;
     node.connect(context.destination);
     node.addEventListener("ended", () => {
       node.stop();
