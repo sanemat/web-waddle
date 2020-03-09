@@ -45,6 +45,7 @@
     node.addEventListener("ended", () => {
       node.stop();
       node.disconnect();
+      node.buffer = null;
       node = null;
     });
     node.start();
