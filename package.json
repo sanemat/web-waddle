@@ -38,5 +38,8 @@
     "prettier": "prettier --write src/*.{ts,html,css} *.js",
     "start": "webpack-dev-server --progress --color --mode development --config webpack.config.development.js",
     "test": "jest --passWithNoTests"
+  },
+  "dependencies": {
+    "standardized-audio-context": "^24.0.8"
   }
 }
