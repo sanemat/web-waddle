@@ -18,7 +18,7 @@ import {
       if (source) {
         if (button.dataset.playing === "false") {
           if (node) {
-            node.start();
+            node.start(0, 10);
           } else {
             node = new AudioBufferSourceNode(audioCtx, { buffer: source });
             node.connect(audioCtx.destination);
@@ -28,11 +28,11 @@ import {
               node = null;
               button.dataset.playing = "false";
             });
-            node.start();
+            node.start(0, 12);
           }
           button.dataset.playing = "true";
         } else if (button.dataset.playing === "true") {
-          audioCtx.suspend();
+          node.stop();
           button.dataset.playing = "false";
         }
       } else {
@@ -48,7 +48,7 @@ import {
             source = decodeAudio;
             if (button.dataset.playing === "false") {
               if (node) {
-                node.start();
+                node.start(0, 15);
               } else {
                 node = new AudioBufferSourceNode(audioCtx, { buffer: source });
                 node.connect(audioCtx.destination);
@@ -58,11 +58,11 @@ import {
                   node = null;
                   button.dataset.playing = "false";
                 });
-                node.start();
+                node.start(0, 19);
               }
               button.dataset.playing = "true";
             } else if (button.dataset.playing === "true") {
-              audioCtx.suspend();
+              node.stop();
               button.dataset.playing = "false";
             }
           })
