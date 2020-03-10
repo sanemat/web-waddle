@@ -15,7 +15,14 @@ import {
       }
 
       if (source) {
-        play();
+        let node = new AudioBufferSourceNode(audioCtx, { buffer: source });
+        node.connect(audioCtx.destination);
+        node.addEventListener("ended", () => {
+          node.stop();
+          node.disconnect();
+          node = null;
+        });
+        node.start();
       } else {
         fetch("7sxtEOR7zhrd-60sec-fade-out.128.mp3")
           .then(response => {
@@ -26,7 +33,14 @@ import {
           })
           .then(decodeAudio => {
             source = decodeAudio;
-            play();
+            let node = new AudioBufferSourceNode(audioCtx, { buffer: source });
+            node.connect(audioCtx.destination);
+            node.addEventListener("ended", () => {
+              node.stop();
+              node.disconnect();
+              node = null;
+            });
+            node.start();
           })
           .catch(error => {
             console.error(error);
@@ -34,15 +48,4 @@ import {
       }
     });
   });
-
-  function play() {
-    let node = new AudioBufferSourceNode(audioCtx, { buffer: source });
-    node.connect(audioCtx.destination);
-    node.addEventListener("ended", () => {
-      node.stop();
-      node.disconnect();
-      node = null;
-    });
-    node.start();
-  }
 })();
