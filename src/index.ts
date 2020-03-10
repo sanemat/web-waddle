@@ -13,20 +13,25 @@ import {
       if (audioCtx.state === "suspended") {
         audioCtx.resume();
       }
-      fetch("7sxtEOR7zhrd-60sec-fade-out.128.mp3")
-        .then(response => {
-          return response.arrayBuffer();
-        })
-        .then(buffer => {
-          return audioCtx.decodeAudioData(buffer);
-        })
-        .then(decodeAudio => {
-          source = decodeAudio;
-          play();
-        })
-        .catch(error => {
-          console.error(error);
-        });
+
+      if (source) {
+        play();
+      } else {
+        fetch("7sxtEOR7zhrd-60sec-fade-out.128.mp3")
+          .then(response => {
+            return response.arrayBuffer();
+          })
+          .then(buffer => {
+            return audioCtx.decodeAudioData(buffer);
+          })
+          .then(decodeAudio => {
+            source = decodeAudio;
+            play();
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }
     });
   });
 
