@@ -24,6 +24,7 @@ import {
         });
         node.start();
       } else {
+        // NOTE: need loading flag
         fetch("7sxtEOR7zhrd-60sec-fade-out.128.mp3")
           .then(response => {
             return response.arrayBuffer();
