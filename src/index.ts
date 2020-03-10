@@ -1,4 +1,7 @@
-import { AudioContext } from "standardized-audio-context";
+import {
+  AudioContext,
+  AudioBufferSourceNode
+} from "standardized-audio-context";
 
 (() => {
   let context = new AudioContext();
@@ -26,15 +29,11 @@ import { AudioContext } from "standardized-audio-context";
   });
 
   function play() {
-    // safari does not have AudioBufferSourceNode() constructor
-    // https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode/AudioBufferSourceNode
-    let node = context.createBufferSource();
-    node.buffer = source;
+    let node = new AudioBufferSourceNode(context, { buffer: source });
     node.connect(context.destination);
     node.addEventListener("ended", () => {
       node.stop();
       node.disconnect();
-      node.buffer = null;
       node = null;
     });
     node.start();
