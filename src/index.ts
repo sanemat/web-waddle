@@ -6,6 +6,7 @@ import {
 (() => {
   let audioCtx = new AudioContext();
   let source: AudioBuffer = null;
+  let loading = false;
   window.addEventListener("load", () => {
     const button = document.body.querySelector("#buttonStart");
     button.addEventListener("click", () => {
@@ -15,20 +16,30 @@ import {
           console.error(error);
         });
       }
-      fetch("7sxtEOR7zhrd-60sec-fade-out.128.mp3")
-        .then(response => {
-          return response.arrayBuffer();
-        })
-        .then(buffer => {
-          return audioCtx.decodeAudioData(buffer);
-        })
-        .then(decodeAudio => {
-          source = decodeAudio;
-          play();
-        })
-        .catch(error => {
-          console.error(error);
-        });
+      if (loading) {
+        return;
+      }
+      if (source) {
+        play();
+      } else {
+        loading = true;
+        fetch("7sxtEOR7zhrd-60sec-fade-out.128.mp3")
+          .then(response => {
+            return response.arrayBuffer();
+          })
+          .then(buffer => {
+            return audioCtx.decodeAudioData(buffer);
+          })
+          .then(decodeAudio => {
+            loading = false;
+            source = decodeAudio;
+            play();
+          })
+          .catch(error => {
+            loading = false;
+            console.error(error);
+          });
+      }
     });
   });
 
