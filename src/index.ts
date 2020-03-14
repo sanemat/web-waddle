@@ -34,6 +34,8 @@ import {
             loading = false;
             console.error(error);
           });
+      } else if (!loading && source) {
+        play();
       }
     });
   });
