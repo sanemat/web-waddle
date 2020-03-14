@@ -23,7 +23,7 @@ import {
         return;
       }
       if (source) {
-        play();
+        toggleBgm();
       } else {
         loading = true;
         fetch("7sxtEOR7zhrd-60sec-fade-out.128.mp3")
@@ -36,7 +36,7 @@ import {
           .then(decodeAudio => {
             loading = false;
             source = decodeAudio;
-            play();
+            toggleBgm();
           })
           .catch(error => {
             loading = false;
@@ -46,14 +46,20 @@ import {
     });
   });
 
-  function play() {
-    bgmNode = new AudioBufferSourceNode(audioCtx, { buffer: source });
-    bgmNode.connect(audioCtx.destination);
-    bgmNode.addEventListener("ended", () => {
+  function toggleBgm() {
+    if (bgmNode) {
       bgmNode.stop();
       bgmNode.disconnect();
       bgmNode = null;
-    });
-    bgmNode.start();
+    } else {
+      bgmNode = new AudioBufferSourceNode(audioCtx, { buffer: source });
+      bgmNode.connect(audioCtx.destination);
+      bgmNode.addEventListener("ended", () => {
+        bgmNode.stop();
+        bgmNode.disconnect();
+        bgmNode = null;
+      });
+      bgmNode.start();
+    }
   }
 })();
