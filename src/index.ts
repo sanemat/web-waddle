@@ -8,7 +8,7 @@ import {
   let source: AudioBuffer = null;
   let loading = false;
   window.addEventListener("load", () => {
-    const button = document.body.querySelector("#buttonStart");
+    const button = document.body.querySelector("#buttonToggleBgm");
     button.addEventListener("click", () => {
       // autoplay policy
       if (audioCtx.state === "suspended") {
