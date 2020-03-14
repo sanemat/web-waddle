@@ -16,7 +16,10 @@ import {
           console.error(error);
         });
       }
-      if (!loading && !source) {
+      if (loading) {
+        return;
+      }
+      if (!source) {
         loading = true;
         fetch("7sxtEOR7zhrd-60sec-fade-out.128.mp3")
           .then(response => {
@@ -34,7 +37,7 @@ import {
             loading = false;
             console.error(error);
           });
-      } else if (!loading && source) {
+      } else {
         play();
       }
     });
