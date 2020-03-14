@@ -4,6 +4,7 @@ const ForkTsCheckerNotifierWebpackPlugin = require("fork-ts-checker-notifier-web
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
+const GitRevisionPlugin = require("git-revision-webpack-plugin");
 
 const main = ["./src/index.ts"];
 
@@ -29,7 +30,8 @@ module.exports = {
       inject: true,
       template: "src/index.html"
     }),
-    new CopyPlugin([{ context: "./src", from: "*.mp3" }])
+    new CopyPlugin([{ context: "./src", from: "*.mp3" }]),
+    new GitRevisionPlugin()
   ],
   module: {
     rules: [

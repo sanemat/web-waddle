@@ -3,6 +3,7 @@ const path = require("path");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
+const GitRevisionPlugin = require("git-revision-webpack-plugin");
 
 const main = ["./src/index.ts"];
 
@@ -38,7 +39,8 @@ module.exports = {
         minifyURLs: true
       }
     }),
-    new CopyPlugin([{ context: "./src", from: "*.mp3" }])
+    new CopyPlugin([{ context: "./src", from: "*.mp3" }]),
+    new GitRevisionPlugin()
   ],
   module: {
     rules: [
