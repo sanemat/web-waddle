@@ -1,14 +1,17 @@
 import {
   AudioContext,
-  AudioBufferSourceNode
+  AudioBufferSourceNode,
+  IAudioBufferSourceNode,
+  IAudioContext
 } from "standardized-audio-context";
 
 (() => {
   let audioCtx = new AudioContext();
   let source: AudioBuffer = null;
   let loading = false;
+  let bgmNode: IAudioBufferSourceNode<IAudioContext> = null;
   window.addEventListener("load", () => {
-    const button = document.body.querySelector("#buttonStart");
+    const button = document.body.querySelector("#buttonToggleBgm");
     button.addEventListener("click", () => {
       // autoplay policy
       if (audioCtx.state === "suspended") {
@@ -20,7 +23,7 @@ import {
         return;
       }
       if (source) {
-        play();
+        toggleBgm();
       } else {
         loading = true;
         fetch("7sxtEOR7zhrd-60sec-fade-out.128.mp3")
@@ -33,7 +36,7 @@ import {
           .then(decodeAudio => {
             loading = false;
             source = decodeAudio;
-            play();
+            toggleBgm();
           })
           .catch(error => {
             loading = false;
@@ -43,14 +46,20 @@ import {
     });
   });
 
-  function play() {
-    let node = new AudioBufferSourceNode(audioCtx, { buffer: source });
-    node.connect(audioCtx.destination);
-    node.addEventListener("ended", () => {
-      node.stop();
-      node.disconnect();
-      node = null;
-    });
-    node.start();
+  function toggleBgm() {
+    if (bgmNode) {
+      bgmNode.stop();
+      bgmNode.disconnect();
+      bgmNode = null;
+    } else {
+      bgmNode = new AudioBufferSourceNode(audioCtx, { buffer: source });
+      bgmNode.connect(audioCtx.destination);
+      bgmNode.addEventListener("ended", () => {
+        bgmNode.stop();
+        bgmNode.disconnect();
+        bgmNode = null;
+      });
+      bgmNode.start();
+    }
   }
 })();
