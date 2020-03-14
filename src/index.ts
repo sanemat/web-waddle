@@ -7,7 +7,9 @@ import { AudioContext } from "standardized-audio-context";
     button.addEventListener("click", () => {
       // autoplay policy
       if (audioCtx.state === "suspended") {
-        audioCtx.resume();
+        audioCtx.resume().catch(error => {
+          console.error(error);
+        });
       }
 
       const audioElement = document.querySelector("audio");
