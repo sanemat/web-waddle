@@ -30,12 +30,12 @@ import {
           .then(response => {
             return response.arrayBuffer();
           })
-          .then(buffer => {
-            return audioCtx.decodeAudioData(buffer);
+          .then(arrayBuffer => {
+            return audioCtx.decodeAudioData(arrayBuffer);
           })
-          .then(decodeAudio => {
+          .then(audioBuffer => {
             loading = false;
-            source = decodeAudio;
+            source = audioBuffer;
             toggleBgm();
           })
           .catch(error => {
