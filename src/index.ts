@@ -10,6 +10,7 @@ import {
   let source: AudioBuffer = null;
   let loading = false;
   let bgmNode: IAudioBufferSourceNode<IAudioContext> = null;
+  let analyser = audioCtx.createAnalyser();
   window.addEventListener("load", () => {
     const button = document.body.querySelector("#buttonToggleBgm");
     button.addEventListener("click", () => {
@@ -53,7 +54,8 @@ import {
       bgmNode = null;
     } else {
       bgmNode = new AudioBufferSourceNode(audioCtx, { buffer: source });
-      bgmNode.connect(audioCtx.destination);
+      bgmNode.connect(analyser);
+      analyser.connect(audioCtx.destination);
       bgmNode.addEventListener("ended", () => {
         bgmNode.stop();
         bgmNode.disconnect();
