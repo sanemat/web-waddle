@@ -11,8 +11,12 @@ import {
   let loading = false;
   let bgmNode: IAudioBufferSourceNode<IAudioContext> = null;
   let analyser = audioCtx.createAnalyser();
+  let canvasElement: HTMLCanvasElement = null;
+  let canvasCtx: CanvasRenderingContext2D = null;
   window.addEventListener("load", () => {
     const button = document.body.querySelector("#buttonToggleBgm");
+    canvasElement = document.body.querySelector("#visualizer");
+    canvasCtx = canvasElement.getContext("2d");
     button.addEventListener("click", () => {
       // autoplay policy
       if (audioCtx.state === "suspended") {
@@ -67,9 +71,13 @@ import {
   }
 
   function visualize() {
+    const WIDTH = canvasElement.width;
+    const HEIGHT = canvasElement.height;
+
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
 
+    canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
     function draw() {
       // drawVisual
       requestAnimationFrame(draw);
