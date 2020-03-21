@@ -62,9 +62,11 @@ import {
       analyser.connect(audioCtx.destination);
       visualize();
       bgmNode.addEventListener("ended", () => {
-        bgmNode.stop();
-        bgmNode.disconnect();
-        bgmNode = null;
+        if (bgmNode) {
+          bgmNode.stop();
+          bgmNode.disconnect();
+          bgmNode = null;
+        }
       });
       bgmNode.start();
     }
