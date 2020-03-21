@@ -69,6 +69,12 @@ import {
   function visualize() {
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
-    analyser.getByteTimeDomainData(dataArray);
+
+    function draw() {
+      // drawVisual
+      requestAnimationFrame(draw);
+      analyser.getByteTimeDomainData(dataArray);
+    }
+    draw();
   }
 })();
