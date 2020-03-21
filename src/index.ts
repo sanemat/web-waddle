@@ -16,6 +16,7 @@ import {
   window.addEventListener("load", () => {
     const button = document.body.querySelector("#buttonToggleBgm");
     canvasElement = document.body.querySelector("#visualizer");
+    resizeCanvas();
     canvasCtx = canvasElement.getContext("2d");
     button.addEventListener("click", () => {
       // autoplay policy
@@ -110,5 +111,10 @@ import {
       canvasCtx.stroke();
     }
     draw();
+  }
+
+  window.addEventListener("resize", resizeCanvas);
+  function resizeCanvas() {
+    canvasElement.width = window.innerWidth - 20; // magic number
   }
 })();
