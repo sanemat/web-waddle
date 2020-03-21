@@ -10,8 +10,13 @@ import {
   let source: AudioBuffer = null;
   let loading = false;
   let bgmNode: IAudioBufferSourceNode<IAudioContext> = null;
+  let analyser = audioCtx.createAnalyser();
+  let canvasElement: HTMLCanvasElement = null;
+  let canvasCtx: CanvasRenderingContext2D = null;
   window.addEventListener("load", () => {
     const button = document.body.querySelector("#buttonToggleBgm");
+    canvasElement = document.body.querySelector("#visualizer");
+    canvasCtx = canvasElement.getContext("2d");
     button.addEventListener("click", () => {
       // autoplay policy
       if (audioCtx.state === "suspended") {
@@ -53,7 +58,9 @@ import {
       bgmNode = null;
     } else {
       bgmNode = new AudioBufferSourceNode(audioCtx, { buffer: source });
-      bgmNode.connect(audioCtx.destination);
+      bgmNode.connect(analyser);
+      analyser.connect(audioCtx.destination);
+      visualize();
       bgmNode.addEventListener("ended", () => {
         bgmNode.stop();
         bgmNode.disconnect();
@@ -61,5 +68,47 @@ import {
       });
       bgmNode.start();
     }
+  }
+
+  function visualize() {
+    const WIDTH = canvasElement.width;
+    const HEIGHT = canvasElement.height;
+
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+
+    canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
+    function draw() {
+      // drawVisual
+      requestAnimationFrame(draw);
+      analyser.getByteTimeDomainData(dataArray);
+      canvasCtx.fillStyle = "rgb(200, 200, 200)";
+      canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
+
+      canvasCtx.lineWidth = 2;
+      canvasCtx.strokeStyle = "rgb(0, 0, 0)";
+
+      canvasCtx.beginPath();
+
+      const sliceWidth = (WIDTH * 1.0) / bufferLength;
+      let x = 0;
+
+      for (let i = 0; i < bufferLength; i++) {
+        const v = dataArray[i] / 128.0;
+        const y = (v * HEIGHT) / 2;
+
+        if (i === 0) {
+          canvasCtx.moveTo(x, y);
+        } else {
+          canvasCtx.lineTo(x, y);
+        }
+
+        x += sliceWidth;
+      }
+
+      canvasCtx.lineTo(canvasElement.width, canvasElement.height / 2);
+      canvasCtx.stroke();
+    }
+    draw();
   }
 })();
