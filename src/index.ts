@@ -56,6 +56,7 @@ import {
       bgmNode = new AudioBufferSourceNode(audioCtx, { buffer: source });
       bgmNode.connect(analyser);
       analyser.connect(audioCtx.destination);
+      visualize();
       bgmNode.addEventListener("ended", () => {
         bgmNode.stop();
         bgmNode.disconnect();
@@ -63,5 +64,11 @@ import {
       });
       bgmNode.start();
     }
+  }
+
+  function visualize() {
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+    analyser.getByteTimeDomainData(dataArray);
   }
 })();
