@@ -11,48 +11,48 @@ const main = ["./src/index.ts"];
 module.exports = {
   context: process.cwd(), // to automatically find tsconfig.json
   entry: {
-    main
+    main,
   },
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].js",
-    publicPath: "/"
+    publicPath: "/",
   },
   plugins: [
     new ForkTsCheckerWebpackPlugin({
-      eslint: true
+      eslint: { enabled: true },
     }),
     new ForkTsCheckerNotifierWebpackPlugin({
       title: "TypeScript",
-      excludeWarnings: false
+      excludeWarnings: false,
     }),
     new HtmlWebpackPlugin({
       inject: true,
-      template: "src/index.html"
+      template: "src/index.html",
     }),
     new CopyPlugin([{ context: "./src", from: "*.mp3" }]),
-    new GitRevisionPlugin()
+    new GitRevisionPlugin(),
   ],
   module: {
     rules: [
       {
         test: /.tsx?$/,
-        use: [{ loader: "ts-loader", options: { transpileOnly: true } }]
+        use: [{ loader: "ts-loader", options: { transpileOnly: true } }],
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
-      }
-    ]
+        use: ["style-loader", "css-loader"],
+      },
+    ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js"]
+    extensions: [".tsx", ".ts", ".js"],
   },
   devtool: "inline-source-map",
   devServer: {
     clientLogLevel: "warning",
     open: true,
     historyApiFallback: true,
-    stats: "errors-only"
-  }
+    stats: "errors-only",
+  },
 };

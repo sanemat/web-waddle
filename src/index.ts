@@ -2,7 +2,7 @@ import {
   AudioContext,
   AudioBufferSourceNode,
   IAudioBufferSourceNode,
-  IAudioContext
+  IAudioContext,
 } from "standardized-audio-context";
 
 (() => {
@@ -21,7 +21,7 @@ import {
     button.addEventListener("click", () => {
       // autoplay policy
       if (audioCtx.state === "suspended") {
-        audioCtx.resume().catch(error => {
+        audioCtx.resume().catch((error) => {
           console.error(error);
         });
       }
@@ -33,18 +33,18 @@ import {
       } else {
         loading = true;
         fetch("7sxtEOR7zhrd-60sec-fade-out.128.mp3")
-          .then(response => {
+          .then((response) => {
             return response.arrayBuffer();
           })
-          .then(arrayBuffer => {
+          .then((arrayBuffer) => {
             return audioCtx.decodeAudioData(arrayBuffer);
           })
-          .then(audioBuffer => {
+          .then((audioBuffer) => {
             loading = false;
             source = audioBuffer;
             toggleBgm();
           })
-          .catch(error => {
+          .catch((error) => {
             loading = false;
             console.error(error);
           });
