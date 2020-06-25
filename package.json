@@ -6,7 +6,7 @@
     "url": "https://github.com/sanemat/web-waddle/issues"
   },
   "devDependencies": {
-    "@types/jest": "^25.1.3",
+    "@types/jest": "^26.0.3",
     "@types/node": "^14.0.14",
     "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^3.6.0",
