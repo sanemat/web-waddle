@@ -41,7 +41,9 @@ module.exports = {
         minifyURLs: true,
       },
     }),
-    new CopyPlugin([{ context: "./src", from: "*.mp3" }]),
+    new CopyPlugin({
+      patterns: [{ context: "./src", from: "*.mp3" }],
+    }),
     new GitRevisionPlugin(),
   ],
   module: {

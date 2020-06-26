@@ -30,7 +30,7 @@ module.exports = {
       inject: true,
       template: "src/index.html",
     }),
-    new CopyPlugin([{ context: "./src", from: "*.mp3" }]),
+    new CopyPlugin({ patterns: [{ context: "./src", from: "*.mp3" }] }),
     new GitRevisionPlugin(),
   ],
   module: {
