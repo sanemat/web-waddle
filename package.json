@@ -13,7 +13,7 @@
     "del-cli": "^3.0.1",
     "eslint": "^7.6.0",
     "fork-ts-checker-notifier-webpack-plugin": "^3.0.0",
-    "fork-ts-checker-webpack-plugin": "^5.0.13",
+    "fork-ts-checker-webpack-plugin": "^5.0.14",
     "git-revision-webpack-plugin": "^3.0.6",
     "html-webpack-plugin": "^4.3.0",
     "jest": "^25.5.4",
