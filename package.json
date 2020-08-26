@@ -41,6 +41,6 @@
     "test": "jest --passWithNoTests"
   },
   "dependencies": {
-    "standardized-audio-context": "^24.1.25"
+    "standardized-audio-context": "^24.1.26"
   }
 }
