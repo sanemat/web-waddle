@@ -37,7 +37,7 @@
     "build": "webpack --color --mode production --config webpack.config.production.js",
     "prebuild": "del dist",
     "prettier": "prettier --write src/*.{ts,html,css} *.js",
-    "start": "webpack-dev-server --progress --color --mode development --config webpack.config.development.js",
+    "start": "webpack serve --progress --color --mode development --config webpack.config.development.js",
     "test": "jest --passWithNoTests"
   },
   "dependencies": {
