@@ -24,7 +24,7 @@
     "typescript": "^3.9.7",
     "webpack": "^5.11.1",
     "webpack-cli": "^4.3.1",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^3.11.1"
   },
   "homepage": "https://github.com/sanemat/web-waddle#readme",
   "license": "Apache-2.0",
