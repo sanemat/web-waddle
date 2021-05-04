@@ -6,26 +6,3 @@ updates:
     interval: daily
     time: "22:00"
   open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: webpack
-    versions:
-    - 5.18.0
-    - 5.20.0
-    - 5.20.1
-    - 5.21.0
-    - 5.24.1
-    - 5.36.0
-  - dependency-name: ts-loader
-    versions:
-    - 9.0.2
-  - dependency-name: fork-ts-checker-notifier-webpack-plugin
-    versions:
-    - 4.0.0
-  - dependency-name: fork-ts-checker-webpack-plugin
-    versions:
-    - 6.2.4
-  - dependency-name: "@types/node"
-    versions:
-    - 14.14.26
-    - 14.14.29
-    - 14.14.36
