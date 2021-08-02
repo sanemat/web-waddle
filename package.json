@@ -11,7 +11,7 @@
     "copy-webpack-plugin": "^9.0.1",
     "css-loader": "^6.2.0",
     "del-cli": "^4.0.1",
-    "eslint": "^7.31.0",
+    "eslint": "^7.32.0",
     "fork-ts-checker-notifier-webpack-plugin": "^4.0.0",
     "fork-ts-checker-webpack-plugin": "^6.2.13",
     "git-revision-webpack-plugin": "^5.0.0",
