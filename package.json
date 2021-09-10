@@ -7,7 +7,7 @@
   },
   "devDependencies": {
     "@types/jest": "^27.0.1",
-    "@types/node": "^16.9.0",
+    "@types/node": "^16.9.1",
     "copy-webpack-plugin": "^9.0.1",
     "css-loader": "^6.2.0",
     "del-cli": "^4.0.1",
