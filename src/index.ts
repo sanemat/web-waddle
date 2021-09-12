@@ -14,66 +14,6 @@ import {
   let canvasElement: HTMLCanvasElement = null;
   let canvasCtx: CanvasRenderingContext2D = null;
 
-  function resizeCanvas() {
-    canvasElement.width = window.innerWidth - 20; // magic number
-  }
-
-  window.addEventListener('load', () => {
-    const button = document.body.querySelector('#buttonToggleBgm');
-    canvasElement = document.body.querySelector('#visualizer');
-    resizeCanvas();
-    canvasCtx = canvasElement.getContext('2d');
-    button.addEventListener('click', () => {
-      // autoplay policy
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume().catch((error) => {
-          console.error(error); // eslint-disable-line no-console
-        });
-      }
-      if (loading) {
-        return;
-      }
-      if (source) {
-        toggleBgm();
-      } else {
-        loading = true;
-        fetch('7sxtEOR7zhrd-60sec-fade-out.128.mp3')
-          .then((response) => response.arrayBuffer())
-          .then((arrayBuffer) => audioCtx.decodeAudioData(arrayBuffer))
-          .then((audioBuffer) => {
-            loading = false;
-            source = audioBuffer;
-            toggleBgm();
-          })
-          .catch((error) => {
-            loading = false;
-            console.error(error); // eslint-disable-line no-console
-          });
-      }
-    });
-  });
-
-  function toggleBgm() {
-    if (bgmNode) {
-      bgmNode.stop();
-      bgmNode.disconnect();
-      bgmNode = null;
-    } else {
-      bgmNode = new AudioBufferSourceNode(audioCtx, { buffer: source });
-      bgmNode.connect(analyser);
-      analyser.connect(audioCtx.destination);
-      visualize();
-      bgmNode.addEventListener('ended', () => {
-        if (bgmNode) {
-          bgmNode.stop();
-          bgmNode.disconnect();
-          bgmNode = null;
-        }
-      });
-      bgmNode.start();
-    }
-  }
-
   function visualize() {
     const WIDTH = canvasElement.width;
     const HEIGHT = canvasElement.height;
@@ -115,6 +55,66 @@ import {
     }
     draw();
   }
+
+  function toggleBgm() {
+    if (bgmNode) {
+      bgmNode.stop();
+      bgmNode.disconnect();
+      bgmNode = null;
+    } else {
+      bgmNode = new AudioBufferSourceNode(audioCtx, { buffer: source });
+      bgmNode.connect(analyser);
+      analyser.connect(audioCtx.destination);
+      visualize();
+      bgmNode.addEventListener('ended', () => {
+        if (bgmNode) {
+          bgmNode.stop();
+          bgmNode.disconnect();
+          bgmNode = null;
+        }
+      });
+      bgmNode.start();
+    }
+  }
+
+  function resizeCanvas() {
+    canvasElement.width = window.innerWidth - 20; // magic number
+  }
+
+  window.addEventListener('load', () => {
+    const button = document.body.querySelector('#buttonToggleBgm');
+    canvasElement = document.body.querySelector('#visualizer');
+    resizeCanvas();
+    canvasCtx = canvasElement.getContext('2d');
+    button.addEventListener('click', () => {
+      // autoplay policy
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume().catch((error) => {
+          console.error(error); // eslint-disable-line no-console
+        });
+      }
+      if (loading) {
+        return;
+      }
+      if (source) {
+        toggleBgm();
+      } else {
+        loading = true;
+        fetch('7sxtEOR7zhrd-60sec-fade-out.128.mp3')
+          .then((response) => response.arrayBuffer())
+          .then((arrayBuffer) => audioCtx.decodeAudioData(arrayBuffer))
+          .then((audioBuffer) => {
+            loading = false;
+            source = audioBuffer;
+            toggleBgm();
+          })
+          .catch((error) => {
+            loading = false;
+            console.error(error); // eslint-disable-line no-console
+          });
+      }
+    });
+  });
 
   window.addEventListener('resize', resizeCanvas);
 })();
