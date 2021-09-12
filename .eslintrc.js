@@ -16,4 +16,5 @@ module.exports = {
   ],
   rules: {
   },
+  ignorePatterns: ['*.mp3', '*.html', '*.css']
 };
