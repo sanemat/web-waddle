@@ -53,7 +53,9 @@ module.exports = {
   },
   devtool: "inline-source-map",
   devServer: {
-    clientLogLevel: "warning",
+    client: {
+      logging: "warn",
+    },
     open: true,
     historyApiFallback: true,
   },
