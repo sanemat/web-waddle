@@ -3,24 +3,24 @@ import {
   AudioBufferSourceNode,
   IAudioBufferSourceNode,
   IAudioContext,
-} from "standardized-audio-context";
+} from 'standardized-audio-context';
 
 (() => {
-  let audioCtx = new AudioContext();
+  const audioCtx = new AudioContext();
   let source: AudioBuffer = null;
   let loading = false;
   let bgmNode: IAudioBufferSourceNode<IAudioContext> = null;
-  let analyser = audioCtx.createAnalyser();
+  const analyser = audioCtx.createAnalyser();
   let canvasElement: HTMLCanvasElement = null;
   let canvasCtx: CanvasRenderingContext2D = null;
-  window.addEventListener("load", () => {
-    const button = document.body.querySelector("#buttonToggleBgm");
-    canvasElement = document.body.querySelector("#visualizer");
+  window.addEventListener('load', () => {
+    const button = document.body.querySelector('#buttonToggleBgm');
+    canvasElement = document.body.querySelector('#visualizer');
     resizeCanvas();
-    canvasCtx = canvasElement.getContext("2d");
-    button.addEventListener("click", () => {
+    canvasCtx = canvasElement.getContext('2d');
+    button.addEventListener('click', () => {
       // autoplay policy
-      if (audioCtx.state === "suspended") {
+      if (audioCtx.state === 'suspended') {
         audioCtx.resume().catch((error) => {
           console.error(error);
         });
@@ -32,13 +32,9 @@ import {
         toggleBgm();
       } else {
         loading = true;
-        fetch("7sxtEOR7zhrd-60sec-fade-out.128.mp3")
-          .then((response) => {
-            return response.arrayBuffer();
-          })
-          .then((arrayBuffer) => {
-            return audioCtx.decodeAudioData(arrayBuffer);
-          })
+        fetch('7sxtEOR7zhrd-60sec-fade-out.128.mp3')
+          .then((response) => response.arrayBuffer())
+          .then((arrayBuffer) => audioCtx.decodeAudioData(arrayBuffer))
           .then((audioBuffer) => {
             loading = false;
             source = audioBuffer;
@@ -62,7 +58,7 @@ import {
       bgmNode.connect(analyser);
       analyser.connect(audioCtx.destination);
       visualize();
-      bgmNode.addEventListener("ended", () => {
+      bgmNode.addEventListener('ended', () => {
         if (bgmNode) {
           bgmNode.stop();
           bgmNode.disconnect();
@@ -85,11 +81,11 @@ import {
       // drawVisual
       requestAnimationFrame(draw);
       analyser.getByteTimeDomainData(dataArray);
-      canvasCtx.fillStyle = "rgb(200, 200, 200)";
+      canvasCtx.fillStyle = 'rgb(200, 200, 200)';
       canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
 
       canvasCtx.lineWidth = 2;
-      canvasCtx.strokeStyle = "rgb(0, 0, 0)";
+      canvasCtx.strokeStyle = 'rgb(0, 0, 0)';
 
       canvasCtx.beginPath();
 
@@ -115,7 +111,7 @@ import {
     draw();
   }
 
-  window.addEventListener("resize", resizeCanvas);
+  window.addEventListener('resize', resizeCanvas);
   function resizeCanvas() {
     canvasElement.width = window.innerWidth - 20; // magic number
   }
