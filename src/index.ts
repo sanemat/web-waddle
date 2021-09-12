@@ -27,7 +27,7 @@ import {
       // autoplay policy
       if (audioCtx.state === 'suspended') {
         audioCtx.resume().catch((error) => {
-          console.error(error);
+          console.error(error); // eslint-disable-line no-console
         });
       }
       if (loading) {
@@ -47,7 +47,7 @@ import {
           })
           .catch((error) => {
             loading = false;
-            console.error(error);
+            console.error(error); // eslint-disable-line no-console
           });
       }
     });
