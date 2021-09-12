@@ -13,6 +13,11 @@ import {
   const analyser = audioCtx.createAnalyser();
   let canvasElement: HTMLCanvasElement = null;
   let canvasCtx: CanvasRenderingContext2D = null;
+
+  function resizeCanvas() {
+    canvasElement.width = window.innerWidth - 20; // magic number
+  }
+
   window.addEventListener('load', () => {
     const button = document.body.querySelector('#buttonToggleBgm');
     canvasElement = document.body.querySelector('#visualizer');
@@ -112,7 +117,4 @@ import {
   }
 
   window.addEventListener('resize', resizeCanvas);
-  function resizeCanvas() {
-    canvasElement.width = window.innerWidth - 20; // magic number
-  }
 })();
