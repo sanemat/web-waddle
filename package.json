@@ -19,7 +19,7 @@
     "fork-ts-checker-notifier-webpack-plugin": "^4.0.0",
     "fork-ts-checker-webpack-plugin": "^6.4.0",
     "git-revision-webpack-plugin": "^5.0.0",
-    "html-webpack-plugin": "^5.3.2",
+    "html-webpack-plugin": "^5.4.0",
     "jest": "^27.3.1",
     "prettier": "^2.4.1",
     "style-loader": "^3.3.1",
