@@ -9,7 +9,7 @@
     "@types/jest": "^27.0.3",
     "@types/node": "^16.11.9",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
-    "@typescript-eslint/parser": "^5.4.0",
+    "@typescript-eslint/parser": "^5.5.0",
     "copy-webpack-plugin": "^10.0.0",
     "css-loader": "^6.5.1",
     "del-cli": "^4.0.1",
