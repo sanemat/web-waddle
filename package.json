@@ -16,7 +16,7 @@
     "eslint": "^8.8.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.4",
-    "fork-ts-checker-notifier-webpack-plugin": "^4.0.0",
+    "fork-ts-checker-notifier-webpack-plugin": "^5.0.0",
     "fork-ts-checker-webpack-plugin": "^6.5.0",
     "git-revision-webpack-plugin": "^5.0.0",
     "html-webpack-plugin": "^5.5.0",
