@@ -33,7 +33,7 @@ jobs:
           name: dist
           path: dist
       - name: Deploy to Firebase
-        uses: w9jds/firebase-action@v1.5.0 # have a trouble on deploy
+        uses: w9jds/firebase-action@v11.24.1
         with:
           args: deploy --only hosting
         env:
